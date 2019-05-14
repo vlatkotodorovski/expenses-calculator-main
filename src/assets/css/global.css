@@ -412,3 +412,27 @@ h1 {
     background: transparent;
     cursor: pointer;
 }
+
+.icon-button {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border: none;
+    background: none;
+    font-size: 16px;
+    text-align: center;
+    color: #404040;
+}
+
+.edit-button {
+    background-image: url('../images/edit.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 5px;
+}
+
+.delete-button {
+    background-image: url('../images/trash-alt.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}

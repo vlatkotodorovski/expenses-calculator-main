@@ -1,5 +1,7 @@
 import React from 'react'
 import './Products.css'
+import '../../assets/images/edit.svg'
+import '../../assets/images/trash-alt.svg'
 // import { NavLink } from 'react-router-dom'
 
 
@@ -53,7 +55,11 @@ export class Products extends React.Component {
                                 <td>carbonated soft drink</td>
                                 <td>29/04/2019</td>
                                 <td>75</td>
-                                <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td>
+                                {/* <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td> */}
+                                <td className="row-actions">
+                                <button className="icon-button edit-button"></button> 
+                                <button className="icon-button delete-button"></button>
+                                </td>
                             </tr>
                             <tr className="table-row">
                                 <td>Coca Cola</td>
