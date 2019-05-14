@@ -4,7 +4,7 @@ import { Expenses } from '../Expenses/Expenses';
 import { NewProduct } from '../NewProduct/NewProduct';
 import {Header} from '../Header/Header'
 import {Route} from 'react-router-dom'
-// import {Header} from '../Header/Header'
+
 
 
 export class Portal extends React.Component {
