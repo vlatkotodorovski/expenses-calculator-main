@@ -2,10 +2,51 @@ import React from 'react'
 import './Products.css'
 import '../../assets/images/edit.svg'
 import '../../assets/images/trash-alt.svg'
+import axios from 'axios';
 // import { NavLink } from 'react-router-dom'
 
 
 export class Products extends React.Component {
+    state = { products: [] }
+
+    async componentDidMount() {
+        const access_token = await localStorage.getItem('access_token')
+
+        axios.get('http://localhost:3000/products', {
+            headers: {
+                access_token
+            }
+        }).then(
+            (res) => {
+                this.setState({ products: res.data })
+            }
+        )
+    }
+
+    _deleteProduct = product => () => {
+        //axios.delete ....
+        //kd ke zavrsi updateState
+        console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
+    }
+
+    _renderProducts() {
+        console.log(this.state.products)
+        return this.state.products.map(product => (
+            <tr className="table-row" key={product._id}>
+                <td>{product.productName}</td>
+                <td>{product.productDescription}</td>
+                <td>carbonated soft drink</td>
+                <td>29/04/2019</td>
+                <td>75</td>
+                <td className="row-actions">
+                    <button className="icon-button edit-button"></button>
+                    <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button>
+                </td>
+            </tr>
+        ))
+    }
+
+
     render() {
         return (
             <section id="products">
@@ -49,16 +90,16 @@ export class Products extends React.Component {
                             </tr>
                         </thead>
                         <tbody className="table-body">
-                            <tr className="table-row">
+                            {this._renderProducts()}
+                            {/* <tr className="table-row">
                                 <td>Coca Cola</td>
                                 <td>Drink</td>
                                 <td>carbonated soft drink</td>
                                 <td>29/04/2019</td>
                                 <td>75</td>
-                                {/* <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td> */}
                                 <td className="row-actions">
-                                <button className="icon-button edit-button"></button> 
-                                <button className="icon-button delete-button"></button>
+                                    <button className="icon-button edit-button"></button>
+                                    <button className="icon-button delete-button"></button>
                                 </td>
                             </tr>
                             <tr className="table-row">
@@ -76,7 +117,7 @@ export class Products extends React.Component {
                                 <td>29/04/2019</td>
                                 <td>75</td>
                                 <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
 
