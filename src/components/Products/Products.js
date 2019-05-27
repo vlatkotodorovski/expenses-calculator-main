@@ -26,6 +26,18 @@ export class Products extends React.Component {
     _deleteProduct = product => () => {
         //axios.delete ....
         //kd ke zavrsi updateState
+        const access_token = localStorage.getItem('access_token')
+
+        axios.delete('http://localhost:3000/products/' + product._id, {
+            headers: {
+                access_token
+            }
+        }).then(
+            (res) => {
+                this.setState({ products: res.data })
+            }
+        )
+
         console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
     }
 
@@ -35,9 +47,9 @@ export class Products extends React.Component {
             <tr className="table-row" key={product._id}>
                 <td>{product.productName}</td>
                 <td>{product.productDescription}</td>
-                <td>carbonated soft drink</td>
-                <td>29/04/2019</td>
-                <td>75</td>
+                <td>{product.productType}</td>
+                <td>{product.purchaseDate}</td>
+                <td>{product.price}</td>
                 <td className="row-actions">
                     <button className="icon-button edit-button"></button>
                     <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button>
