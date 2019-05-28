@@ -24,8 +24,7 @@ export class Products extends React.Component {
     }
 
     _deleteProduct = product => () => {
-        //axios.delete ....
-        //kd ke zavrsi updateState
+        
         const access_token = localStorage.getItem('access_token')
 
         axios.delete('http://localhost:3000/products/' + product._id, {

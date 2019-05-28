@@ -1,9 +1,46 @@
 import React from 'react'
 import './NewProduct.css'
+import axios from 'axios'
 // import { NavLink } from 'react-router-dom'
 
 
 export class NewProduct extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            productName: '',
+            productDescription: '',
+            productType: '',
+            purchaseDate: '',
+            price: ''
+
+        }
+        this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
+        this._addNewProduct = this._addNewProduct.bind(this);
+    }
+
+    _addNewProduct() {
+        const access_token = localStorage.getItem('access_token')
+        axios.post('http://localhost:3000/new-product', this.state, {
+            headers: {
+                access_token
+            }
+        })
+        .then( res => {
+            
+            this.props.history.push('/products')
+        })
+            .catch(err => console.log(err))
+
+    }
+
+    HandleFieldsChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+
     render() {
         return (
             <section id="new-product">
@@ -27,24 +64,24 @@ export class NewProduct extends React.Component {
                         </div>
                         <div className="mainProduct">
                             <div className="login-form prod">
-                                <form>
+                                <div>
                                     <label htmlFor="">Product Name</label>
-                                    <input type="text" name="productName" placeholder="" />
+                                    <input type="text" name="productName" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Description</label>
-                                    <input type="text" name="productDescription" placeholder="" />
+                                    <input type="text" name="productDescription" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Type</label>
-                                    <input type="text" name="productType" placeholder="" />
+                                    <input type="text" name="productType" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Purchase Date</label>
-                                    <input type="text" name="purchaseDate" placeholder="" />
+                                    <input type="number" name="purchaseDate" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Price</label>
-                                    <input type="text" name="productPrice" placeholder="" />
+                                    <input type="number" name="price" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                                    <button>CREATE PRODUCT</button>
-                                </form>
+                                    <button onClick={this._addNewProduct}>CREATE PRODUCT</button>
+                                </div>
 
                             </div>
 
