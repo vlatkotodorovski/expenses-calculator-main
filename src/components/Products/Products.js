@@ -7,7 +7,20 @@ import axios from 'axios';
 
 
 export class Products extends React.Component {
-    state = { products: [] }
+    // state = { products: [] }
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            products: [],
+            
+
+        }
+        // this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
+        // this._renderExpenses = this._renderExpenses.bind(this);
+        this.onNavigateNewProduct = this.onNavigateNewProduct.bind(this);
+        this.onNavigateNewCalc = this.onNavigateNewCalc.bind(this);
+    }
 
     async componentDidMount() {
         const access_token = await localStorage.getItem('access_token')
@@ -55,6 +68,14 @@ export class Products extends React.Component {
                 </td>
             </tr>
         ))
+    }
+
+    onNavigateNewProduct(){
+        this.props.history.push('/new-product')
+    }
+
+    onNavigateNewCalc(){
+        this.props.history.push('/expenses')
     }
 
 
@@ -134,8 +155,8 @@ export class Products extends React.Component {
 
                 </div>
                 <div className="products-buttons">
-                    <button className="product-button-green">NEW CALCULATION</button>
-                    <button className="product-button-grey">NEW PRODUCT</button>
+                    <button className="product-button-green" onClick={this.onNavigateNewCalc}>NEW CALCULATION</button>
+                    <button className="product-button-grey" onClick={this.onNavigateNewProduct}>NEW PRODUCT</button>
                 </div>
 
             </section>
