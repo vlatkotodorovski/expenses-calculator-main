@@ -3,6 +3,8 @@ import './Products.css'
 import '../../assets/images/edit.svg'
 import '../../assets/images/trash-alt.svg'
 import axios from 'axios';
+import { Alert } from '../Alert/Alert'
+
 // import { NavLink } from 'react-router-dom'
 
 
@@ -13,13 +15,18 @@ export class Products extends React.Component {
         this.state = {
 
             products: [],
-            
+            visible: false,
+            selectedProduct: {}
+
 
         }
         // this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
         // this._renderExpenses = this._renderExpenses.bind(this);
         this.onNavigateNewProduct = this.onNavigateNewProduct.bind(this);
         this.onNavigateNewCalc = this.onNavigateNewCalc.bind(this);
+        this._NavigateEditProduct = this._NavigateEditProduct.bind(this);
+        this.visibleFalse = this.visibleFalse.bind(this)
+        // this._deleteProduct = this._deleteProduct.bind(this)
     }
 
     async componentDidMount() {
@@ -37,7 +44,7 @@ export class Products extends React.Component {
     }
 
     _deleteProduct = product => () => {
-        
+
         const access_token = localStorage.getItem('access_token')
 
         axios.delete('http://localhost:3000/products/' + product._id, {
@@ -53,6 +60,27 @@ export class Products extends React.Component {
         console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
     }
 
+
+
+    _NavigateEditProduct() {
+
+        this.props.history.push('edit/')
+
+        // const access_token = localStorage.getItem('access_token')
+
+        // axios.get('http://localhost:3000/products/edit' + product._id, {
+        //     headers: {
+        //         access_token
+        //     }
+        // }).then(
+        //     (res) => {
+        //         this.setState({ products: res.data })
+        //     }
+        // )
+
+        // console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
+    }
+
     _renderProducts() {
         console.log(this.state.products)
         return this.state.products.map(product => (
@@ -63,19 +91,31 @@ export class Products extends React.Component {
                 <td>{product.purchaseDate}</td>
                 <td>{product.price}</td>
                 <td className="row-actions">
-                    <button className="icon-button edit-button"></button>
-                    <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button>
+                    <button className="icon-button edit-button" onClick={this._NavigateEditProduct}></button>
+                    {/* <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button> */}
+                    <button className="icon-button delete-button" onClick={() => 
+                        { this.setState({ 
+                            visible: true,
+                            selectedProduct: product
+                        }); 
+                        }}></button>
                 </td>
             </tr>
         ))
     }
 
-    onNavigateNewProduct(){
+    onNavigateNewProduct() {
         this.props.history.push('/new-product')
     }
 
-    onNavigateNewCalc(){
+    onNavigateNewCalc() {
         this.props.history.push('/expenses')
+    }
+
+    visibleFalse() {
+        this.setState({
+            visible: false
+        })
     }
 
 
@@ -159,7 +199,16 @@ export class Products extends React.Component {
                     <button className="product-button-grey" onClick={this.onNavigateNewProduct}>NEW PRODUCT</button>
                 </div>
 
+                <div>
+                    {this.state.visible ?
+                        <Alert visibleFalse={this.visibleFalse} _deleteProduct={this._deleteProduct(this.state.selectedProduct)} />
+                        : null}
+
+                </div>
+
+                
             </section>
+
 
         )
     }
