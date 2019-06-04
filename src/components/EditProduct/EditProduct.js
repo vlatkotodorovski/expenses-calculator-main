@@ -12,8 +12,8 @@ export class EditProduct extends React.Component {
             productDescription: this.productDescription,
             productType: this.productType,
             purchaseDate: this.purchaseDate,
-            price: this.price
-
+            price: this.price,
+            product: this.props.location.state.product
         }
         this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
         this._updateProduct = this._updateProduct.bind(this);
@@ -21,7 +21,7 @@ export class EditProduct extends React.Component {
 
     _updateProduct() {
         const access_token = localStorage.getItem('access_token')
-        axios.post('http://localhost:3000/edit' , this.state, {
+        axios.patch('http://localhost:3000/edit/' + this.state.product._id , this.state.product, {
             headers: {
                 access_token
             }
@@ -35,13 +35,15 @@ export class EditProduct extends React.Component {
     }
 
     HandleFieldsChange(e) {
+        let newEditProduct = {...this.state.product, [e.target.name]: e.target.value };
         this.setState({
-            [e.target.name]: e.target.value
+            product: newEditProduct
         })
     }
 
 
     render() {
+        let product = this.state.product;
         return (
             <section id="new-product">
                 <div className="newProduct">
@@ -66,19 +68,19 @@ export class EditProduct extends React.Component {
                             <div className="login-form prod">
                                 <div>
                                     <label htmlFor="">Product Name</label>
-                                    <input type="text" name="productName" placeholder={this.productName} onInput={this.HandleFieldsChange}/>
+                                    <input type="text" name="productName" value={product.productName} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Description</label>
-                                    <input type="text" name="productDescription" placeholder={this.productDescription} onInput={this.HandleFieldsChange}/>
+                                    <input type="text" name="productDescription" value={product.productDescription} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Type</label>
-                                    <input type="text" name="productType" placeholder={this.productType} onInput={this.HandleFieldsChange}/>
+                                    <input type="text" name="productType" value={product.productType} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Purchase Date</label>
-                                    <input type="number" name="purchaseDate" placeholder={this.purchaseDate} onInput={this.HandleFieldsChange}/>
+                                    <input type="date" name="purchaseDate" value={product.purchaseDate} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Price</label>
-                                    <input type="number" name="price" placeholder={this.price} onInput={this.HandleFieldsChange}/>
+                                    <input type="number" name="price" value={product.price} onChange={this.HandleFieldsChange}/>
 
                                     <button onClick={this._updateProduct}>UPDATE PRODUCT</button>
                                 </div>

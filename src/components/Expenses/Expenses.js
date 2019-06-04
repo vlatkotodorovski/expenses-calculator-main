@@ -1,6 +1,7 @@
 import React from 'react'
 import './Expenses.css'
 import axios from 'axios'
+import moment from 'moment';
 // import { NavLink } from 'react-router-dom'
 
 
@@ -17,6 +18,7 @@ export class Expenses extends React.Component {
         // this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
         this._renderExpenses = this._renderExpenses.bind(this);
         this.totalPrice = this.totalPrice.bind(this);
+        this.filterByMonth = this.filterByMonth.bind(this)
     }
 
     async componentDidMount() {
@@ -28,7 +30,7 @@ export class Expenses extends React.Component {
             }
         }).then(
             (res) => {
-                this.setState({ products: res.data })
+                this.setState({ products: res.data, defaultProducts: res.data })
             }
         )
     }
@@ -42,7 +44,8 @@ export class Expenses extends React.Component {
                 <td>{product.productName}</td>
                 <td>{product.productDescription}</td>
                 <td>{product.productType}</td>
-                <td>{product.purchaseDate}</td>
+                <td>{moment(product.purchaseDate).format('Do MMMM YYYY, h:mm:ss')}</td>
+                
                 <td>{product.price}</td>
                 <td></td>
                 {/* <td className="row-actions">
@@ -67,6 +70,27 @@ export class Expenses extends React.Component {
           
           return totalSpent
         //   console.log('Total Spent:', totalSpent); 
+    }
+
+    filterByMonth(e){
+        const month = e.target.value
+
+        if(month === "all"){
+            return this.setState({
+                products: this.state.defaultProducts
+            })
+        }
+
+        const a = this.state.defaultProducts.filter((product) => {
+            if(String(moment(product.purchaseDate).month()) === month){
+                return true;
+            }
+            return false;
+        })
+        this.setState({
+            products: a
+        })
+        console.log(a)
     }
 
     render() {
@@ -97,19 +121,20 @@ export class Expenses extends React.Component {
                     <div className="prod_dropdown exps">
                         <label htmlFor="">Choose Month</label>
                         <form>
-                            <select>
-                                <option value="january">January</option>
-                                <option value="february">February</option>
-                                <option value="march">March</option>
-                                <option value="april">April</option>
-                                <option value="may">May</option>
-                                <option value="june">June</option>
-                                <option value="july">July</option>
-                                <option value="august">August</option>
-                                <option value="september">September</option>
-                                <option value="october">October</option>
-                                <option value="november">November</option>
-                                <option value="december">December</option>
+                            <select onChange={this.filterByMonth}>
+                                <option value="all">ALL</option>
+                                <option value="0">January</option>
+                                <option value="1">February</option>
+                                <option value="2">March</option>
+                                <option value="3">April</option>
+                                <option value="4">May</option>
+                                <option value="5">June</option>
+                                <option value="6">July</option>
+                                <option value="7">August</option>
+                                <option value="8">September</option>
+                                <option value="9">October</option>
+                                <option value="10">November</option>
+                                <option value="11">December</option>
                             </select>
                         </form>
                     </div>

@@ -75,7 +75,7 @@ export class NewProduct extends React.Component {
                                     <input type="text" name="productType" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Purchase Date</label>
-                                    <input type="number" name="purchaseDate" placeholder="" onInput={this.HandleFieldsChange}/>
+                                    <input type="date" name="purchaseDate" placeholder="" onInput={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Price</label>
                                     <input type="number" name="price" placeholder="" onInput={this.HandleFieldsChange}/>

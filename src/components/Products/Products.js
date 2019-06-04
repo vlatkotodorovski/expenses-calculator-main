@@ -4,6 +4,7 @@ import '../../assets/images/edit.svg'
 import '../../assets/images/trash-alt.svg'
 import axios from 'axios';
 import { Alert } from '../Alert/Alert'
+import moment from 'moment';
 
 // import { NavLink } from 'react-router-dom'
 
@@ -24,7 +25,7 @@ export class Products extends React.Component {
         // this._renderExpenses = this._renderExpenses.bind(this);
         this.onNavigateNewProduct = this.onNavigateNewProduct.bind(this);
         this.onNavigateNewCalc = this.onNavigateNewCalc.bind(this);
-        this._NavigateEditProduct = this._NavigateEditProduct.bind(this);
+        // this._NavigateEditProduct = this._NavigateEditProduct.bind(this);
         this.visibleFalse = this.visibleFalse.bind(this)
         // this._deleteProduct = this._deleteProduct.bind(this)
     }
@@ -53,7 +54,7 @@ export class Products extends React.Component {
             }
         }).then(
             (res) => {
-                this.setState({ products: res.data })
+                this.setState({ products: res.data, visible: false })
             }
         )
 
@@ -62,24 +63,29 @@ export class Products extends React.Component {
 
 
 
-    _NavigateEditProduct() {
-
-        this.props.history.push('edit/')
-
-        // const access_token = localStorage.getItem('access_token')
-
-        // axios.get('http://localhost:3000/products/edit' + product._id, {
-        //     headers: {
-        //         access_token
-        //     }
-        // }).then(
-        //     (res) => {
-        //         this.setState({ products: res.data })
-        //     }
-        // )
-
-        // console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
+    _NavigateEditProduct = (product) => () => {
+        console.log('edit product', product)
+        this.props.history.push('/edit', { product });
     }
+
+    // _NavigateEditProduct() {
+
+    //     this.props.history.push('edit/')
+
+    //     // const access_token = localStorage.getItem('access_token')
+
+    //     // axios.get('http://localhost:3000/products/edit' + product._id, {
+    //     //     headers: {
+    //     //         access_token
+    //     //     }
+    //     // }).then(
+    //     //     (res) => {
+    //     //         this.setState({ products: res.data })
+    //     //     }
+    //     // )
+
+    //     // console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
+    // }
 
     _renderProducts() {
         console.log(this.state.products)
@@ -88,17 +94,18 @@ export class Products extends React.Component {
                 <td>{product.productName}</td>
                 <td>{product.productDescription}</td>
                 <td>{product.productType}</td>
-                <td>{product.purchaseDate}</td>
+                <td>{moment(product.purchaseDate).format('Do MMMM YYYY, h:mm:ss')}</td>
+                
                 <td>{product.price}</td>
                 <td className="row-actions">
-                    <button className="icon-button edit-button" onClick={this._NavigateEditProduct}></button>
+                    <button className="icon-button edit-button" onClick={this._NavigateEditProduct(product)}></button>
                     {/* <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button> */}
-                    <button className="icon-button delete-button" onClick={() => 
-                        { this.setState({ 
+                    <button className="icon-button delete-button" onClick={() => {
+                        this.setState({
                             visible: true,
                             selectedProduct: product
-                        }); 
-                        }}></button>
+                        });
+                    }}></button>
                 </td>
             </tr>
         ))
@@ -116,6 +123,48 @@ export class Products extends React.Component {
         this.setState({
             visible: false
         })
+    }
+
+    _filterProducts(e) {
+        const type = e.target.value;
+        const products = this.state.products;
+
+        if (type === 'lowest_price') {
+            this.setState({
+                products: products.sort((a, b) => {
+                    if (a.price <= b.price) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                })
+            })
+        }
+
+        if (type === 'highest_price') {
+            this.setState({
+                products: products.sort((a, b) => {
+                    if (a.price >= b.price) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                })
+            })
+        }
+
+        
+        if (type === 'latest_purchase') {
+            this.setState({
+                products: products.sort((a, b) => {
+                    if (a.purchaseDate >= b.purchaseDate) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                })
+            })
+        }
     }
 
 
@@ -140,7 +189,7 @@ export class Products extends React.Component {
                     <div className="prod_dropdown">
                         <label htmlFor="">Filter by:</label>
                         <form>
-                            <select>
+                            <select onChange={this._filterProducts.bind(this)}>
                                 <option value="year">Year</option>
                                 <option value="highest_price">Highest Price</option>
                                 <option value="lowest_price">Lowest Price</option>
@@ -206,7 +255,7 @@ export class Products extends React.Component {
 
                 </div>
 
-                
+
             </section>
 
 
