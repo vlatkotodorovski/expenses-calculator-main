@@ -45,25 +45,25 @@ export class Register extends React.Component {
                 <div className="center_div">
                     <div className="login-container margin_top">
                         <div className="login-form">
-                            <label for="">First Name</label>
+                            <label htmlFor="">First Name</label>
                             <input type="text" name="firstname" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">Last Name</label>
+                            <label htmlFor="">Last Name</label>
                             <input type="text" name="lastname" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">E-mail</label>
+                            <label htmlFor="">E-mail</label>
                             <input type="email" name="email" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">Date Of Birth</label>
+                            <label htmlFor="">Date Of Birth</label>
                             <input type="date" name="dateOfBirth" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">Telephone</label>
+                            <label htmlFor="">Telephone</label>
                             <input type="number" name="telephone" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">Country</label>
+                            <label htmlFor="">Country</label>
                             <input type="text" name="country" placeholder="" onInput={this.HandleFieldsChange}/>
 
-                            <label for="">Password</label>
+                            <label htmlFor="">Password</label>
                             <input type="password" name="password" placeholder="" onInput={this.HandleFieldsChange}/>
 
                             <button onClick={this._doRegister}>REGISTER</button>

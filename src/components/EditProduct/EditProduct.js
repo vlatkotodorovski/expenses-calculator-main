@@ -8,11 +8,17 @@ export class EditProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            productName: this.productName,
-            productDescription: this.productDescription,
-            productType: this.productType,
-            purchaseDate: this.purchaseDate,
-            price: this.price,
+            // productName: this.productName,
+            // productDescription: this.productDescription,
+            // productType: this.productType,
+            // purchaseDate: this.purchaseDate,
+            // price: this.price,
+            // product: this.props.location.state.product
+            productName: '',
+            productDescription: '',
+            productType: '',
+            purchaseDate: '',
+            price: '',
             product: this.props.location.state.product
         }
         this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
@@ -28,7 +34,7 @@ export class EditProduct extends React.Component {
         })
         .then( res => {
             
-            this.props.history.push('/edit')
+            this.props.history.push('/products')
         })
             .catch(err => console.log(err))
 

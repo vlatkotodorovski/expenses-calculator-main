@@ -12,13 +12,18 @@ export class Expenses extends React.Component {
         this.state = {
 
             products: [],
-            totalSpent: 0
+            totalSpent: 0,
+            // isActive: null,
+            // isCLicked: true
+            selectedTime: "monthly"
 
         }
         // this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
         this._renderExpenses = this._renderExpenses.bind(this);
         this.totalPrice = this.totalPrice.bind(this);
-        this.filterByMonth = this.filterByMonth.bind(this)
+        this.filterByMonth = this.filterByMonth.bind(this);
+        this.filterByYear = this.filterByYear.bind(this);
+        this._isActive = this._isActive.bind(this)
     }
 
     async componentDidMount() {
@@ -35,7 +40,7 @@ export class Expenses extends React.Component {
         )
     }
 
-    
+
 
     _renderExpenses() {
         console.log(this.state.products)
@@ -45,7 +50,7 @@ export class Expenses extends React.Component {
                 <td>{product.productDescription}</td>
                 <td>{product.productType}</td>
                 <td>{moment(product.purchaseDate).format('Do MMMM YYYY, h:mm:ss')}</td>
-                
+
                 <td>{product.price}</td>
                 <td></td>
                 {/* <td className="row-actions">
@@ -64,25 +69,25 @@ export class Expenses extends React.Component {
         //         sum = sum + i;  
         //     }
         // }
-        var totalSpent = this.state.products.reduce(function(prev, cur) {
+        var totalSpent = this.state.products.reduce(function (prev, cur) {
             return prev + cur.price;
-          }, 0);
-          
-          return totalSpent
+        }, 0);
+
+        return totalSpent
         //   console.log('Total Spent:', totalSpent); 
     }
 
-    filterByMonth(e){
+    filterByMonth(e) {
         const month = e.target.value
 
-        if(month === "all"){
+        if (month === "all") {
             return this.setState({
                 products: this.state.defaultProducts
             })
         }
 
         const a = this.state.defaultProducts.filter((product) => {
-            if(String(moment(product.purchaseDate).month()) === month){
+            if (String(moment(product.purchaseDate).month()) === month) {
                 return true;
             }
             return false;
@@ -93,7 +98,39 @@ export class Expenses extends React.Component {
         console.log(a)
     }
 
+    filterByYear(e) {
+        const year = e.target.value
+
+        if (year === "all") {
+            return this.setState({
+                products: this.state.defaultProducts
+            })
+        }
+
+        const b = this.state.defaultProducts.filter((product) => {
+            if (String(moment(product.purchaseDate).year()) === year) {
+                return true;
+            }
+            return false;
+        })
+        this.setState({
+            products: b
+        })
+        console.log(b)
+    }
+
+    _isActive() {
+        this.setState({
+            // selectedTime: !this.state.selectedTime
+            // iaActive: true
+            selectedTime: "yearly"
+        })
+
+    }
+
+
     render() {
+        console.log(this.state.selectedTime)
         return (
             <section id="expenses">
                 {/* <div className="headerNewProduct">
@@ -114,11 +151,16 @@ export class Expenses extends React.Component {
                 </div>
                 <div className="tabs-form">
                     <div className="tabs">
-                        <button className="active">MONTHLY</button>
-                        <button className="inactive">YEARLY</button>
-                    </div>
+                        {/* <button className="active">MONTHLY</button>
+                        <button className="inactive">YEARLY</button> */}
+                        {/* <button className={(this.state.isActive) ? "active" : "inactive"} onClick={this._isActive}>MONTHLY</button>
+                        <button className={(this.state.isActive) ? "inactive" : "active"} onClick={this._isActive} >YEARLY</button> */}
+                        <button className={(this.state.selectedTime === "monthly") ? "active" : "inactive"} onClick={this._isActive}>MONTHLY</button>
+                        <button className={(this.state.selectedTime === "monthly") ? "inactive" : "active"} onClick={this._isActive} >YEARLY</button>
 
-                    <div className="prod_dropdown exps">
+                    </div>
+                    
+                    {/* <div className="prod_dropdown exps">
                         <label htmlFor="">Choose Month</label>
                         <form>
                             <select onChange={this.filterByMonth}>
@@ -137,7 +179,50 @@ export class Expenses extends React.Component {
                                 <option value="11">December</option>
                             </select>
                         </form>
+                    </div> */}
+
+                    <div>
+                        {
+                            this.state.selectedTime === "monthly" ?
+
+                            <div className="prod_dropdown exps">
+                            <label htmlFor="">Choose Month</label>
+                            <form>
+                                <select onChange={this.filterByMonth}>
+                                    <option value="all">ALL</option>
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                            </form>
+                        </div>
+                        :
+                        <div className="prod_dropdown exps">
+                            <label htmlFor="">Choose Year</label>
+                            <form>
+                                <select onChange={this.filterByYear}>
+                                    <option value="all">ALL</option>
+                                    <option value="1970">1970</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>          
+                                </select>
+                            </form>
+                        </div>
+                        }
+                    
                     </div>
+                    
 
                 </div>
                 <div className="table-container">
