@@ -23,7 +23,9 @@ export class Expenses extends React.Component {
         this.totalPrice = this.totalPrice.bind(this);
         this.filterByMonth = this.filterByMonth.bind(this);
         this.filterByYear = this.filterByYear.bind(this);
-        this._isActive = this._isActive.bind(this)
+        // this._isActive = this._isActive.bind(this);
+        this.setMonthly = this.setMonthly.bind(this);
+        this.setYearly = this.setYearly.bind(this)
     }
 
     async componentDidMount() {
@@ -119,13 +121,25 @@ export class Expenses extends React.Component {
         console.log(b)
     }
 
-    _isActive() {
+    // _isActive() {
+    //     this.setState({
+    //         // selectedTime: !this.state.selectedTime
+    //         // iaActive: true
+    //         selectedTime: "yearly"
+    //     })
+
+    // }
+
+    setMonthly(){
         this.setState({
-            // selectedTime: !this.state.selectedTime
-            // iaActive: true
+            selectedTime: "monthly"
+        })
+    }
+
+    setYearly(){
+        this.setState({
             selectedTime: "yearly"
         })
-
     }
 
 
@@ -155,8 +169,10 @@ export class Expenses extends React.Component {
                         <button className="inactive">YEARLY</button> */}
                         {/* <button className={(this.state.isActive) ? "active" : "inactive"} onClick={this._isActive}>MONTHLY</button>
                         <button className={(this.state.isActive) ? "inactive" : "active"} onClick={this._isActive} >YEARLY</button> */}
-                        <button className={(this.state.selectedTime === "monthly") ? "active" : "inactive"} onClick={this._isActive}>MONTHLY</button>
-                        <button className={(this.state.selectedTime === "monthly") ? "inactive" : "active"} onClick={this._isActive} >YEARLY</button>
+                        {/* <button className={(this.state.selectedTime === "monthly") ? "active" : "inactive"} onClick={this._isActive}>MONTHLY</button>
+                        <button className={(this.state.selectedTime === "monthly") ? "inactive" : "active"} onClick={this._isActive} >YEARLY</button> */}
+                        <button className={(this.state.selectedTime === "monthly") ? "active" : "inactive"} onClick={this.setMonthly}>MONTHLY</button>
+                        <button className={(this.state.selectedTime === "monthly") ? "inactive" : "active"} onClick={this.setYearly} >YEARLY</button>
 
                     </div>
                     
