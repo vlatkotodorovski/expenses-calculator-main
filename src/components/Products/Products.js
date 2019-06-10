@@ -94,7 +94,7 @@ export class Products extends React.Component {
                 <td>{product.productName}</td>
                 <td>{product.productDescription}</td>
                 <td>{product.productType}</td>
-                <td>{moment(product.purchaseDate).format('Do MMMM YYYY, h:mm:ss')}</td>
+                <td>{moment(product.purchaseDate).format('Do MMMM YYYY')}</td>
                 
                 <td>{product.price}</td>
                 <td className="row-actions">

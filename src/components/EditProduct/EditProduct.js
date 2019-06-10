@@ -1,5 +1,6 @@
 import React from 'react'
 // import './NewProduct.css'
+import moment from 'moment';
 import axios from 'axios'
 // import { NavLink } from 'react-router-dom'
 
@@ -83,7 +84,7 @@ export class EditProduct extends React.Component {
                                     <input type="text" name="productType" value={product.productType} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Purchase Date</label>
-                                    <input type="date" name="purchaseDate" value={product.purchaseDate} onChange={this.HandleFieldsChange}/>
+                                    <input type="date" name="purchaseDate" value={moment(product.purchaseDate).format('YYYY-MM-DD')} onChange={this.HandleFieldsChange}/>
 
                                     <label htmlFor="">Product Price</label>
                                     <input type="number" name="price" value={product.price} onChange={this.HandleFieldsChange}/>

@@ -12,7 +12,8 @@ export class App extends React.Component {
     async componentDidMount() {
         const access_token = await localStorage.getItem("access_token");
 
-        if (!access_token) {
+
+        if (!access_token && this.props.location.pathname !== '/register') {
             this.props.history.push('/login')
         }
     }
@@ -20,7 +21,7 @@ export class App extends React.Component {
     render() {
         return (
             <main id="app">
-                <Route exact path="/login" component={Login} />
+                <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Portal />
                 {/* <Route path = "/new-product" component = {NewProduct} />

@@ -51,7 +51,7 @@ export class Expenses extends React.Component {
                 <td>{product.productName}</td>
                 <td>{product.productDescription}</td>
                 <td>{product.productType}</td>
-                <td>{moment(product.purchaseDate).format('Do MMMM YYYY, h:mm:ss')}</td>
+                <td>{moment(product.purchaseDate).format('Do MMMM YYYY')}</td>
 
                 <td>{product.price}</td>
                 <td></td>
@@ -64,18 +64,16 @@ export class Expenses extends React.Component {
     }
 
     totalPrice() {
-        // var sum = 0;
-        // for (var i = 1; i <= this.state.products.length; i++) {
-        //     // sum = sum + i;
-        //     for (var j = 1; j <= this.state.product.price.length; i++){
-        //         sum = sum + i;  
-        //     }
-        // }
-        var totalSpent = this.state.products.reduce(function (prev, cur) {
-            return prev + cur.price;
-        }, 0);
+        var sum = 0;
+        for (let i = 0; i < this.state.products.length; i++) {
+            sum = sum + this.state.products[i].price;
+        }
+        return sum;
+        // var totalSpent = this.state.products.reduce(function (prev, cur) {
+        //     return prev + cur.price;
+        // }, 0);
 
-        return totalSpent
+        // return totalSpent
         //   console.log('Total Spent:', totalSpent); 
     }
 
