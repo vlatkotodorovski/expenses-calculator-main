@@ -68,9 +68,7 @@ export class Register extends React.Component {
 
                             <button onClick={this._doRegister}>REGISTER</button>
                         </div>
-                        {/* <p>Or if you already have an account,
-                        <a href="login.html">Sign in.</a>
-                    </p> */}
+                        
                         <p>Or if you already have an account,
                     <NavLink to="/login"> Sign in</NavLink>
                         </p>

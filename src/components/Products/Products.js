@@ -6,11 +6,11 @@ import axios from 'axios';
 import { Alert } from '../Alert/Alert'
 import moment from 'moment';
 
-// import { NavLink } from 'react-router-dom'
+
 
 
 export class Products extends React.Component {
-    // state = { products: [] }
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -21,13 +21,12 @@ export class Products extends React.Component {
 
 
         }
-        // this.HandleFieldsChange = this.HandleFieldsChange.bind(this);
-        // this._renderExpenses = this._renderExpenses.bind(this);
+        
         this.onNavigateNewProduct = this.onNavigateNewProduct.bind(this);
         this.onNavigateNewCalc = this.onNavigateNewCalc.bind(this);
-        // this._NavigateEditProduct = this._NavigateEditProduct.bind(this);
+        
         this.visibleFalse = this.visibleFalse.bind(this)
-        // this._deleteProduct = this._deleteProduct.bind(this)
+        
     }
 
     async componentDidMount() {
@@ -68,24 +67,7 @@ export class Products extends React.Component {
         this.props.history.push('/edit', { product });
     }
 
-    // _NavigateEditProduct() {
-
-    //     this.props.history.push('edit/')
-
-    //     // const access_token = localStorage.getItem('access_token')
-
-    //     // axios.get('http://localhost:3000/products/edit' + product._id, {
-    //     //     headers: {
-    //     //         access_token
-    //     //     }
-    //     // }).then(
-    //     //     (res) => {
-    //     //         this.setState({ products: res.data })
-    //     //     }
-    //     // )
-
-    //     // console.log("make request to backend to delete product, and backend should return all products without the deleted, after that use setState", product)
-    // }
+    
 
     _renderProducts() {
         console.log(this.state.products)
@@ -99,7 +81,7 @@ export class Products extends React.Component {
                 <td>{product.price}</td>
                 <td className="row-actions">
                     <button className="icon-button edit-button" onClick={this._NavigateEditProduct(product)}></button>
-                    {/* <button className="icon-button delete-button" onClick={this._deleteProduct(product)}></button> */}
+                    
                     <button className="icon-button delete-button" onClick={() => {
                         this.setState({
                             visible: true,
@@ -171,17 +153,7 @@ export class Products extends React.Component {
     render() {
         return (
             <section id="products">
-                {/* <div className="headerNewProduct">
-                    <div className="button">
-                        <button className="button_products">PRODUCTS</button>
-                        <button className="button_expenses">EXPENSES</button>
-                    </div>
-                    <div className="avatar">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Gal_Gadot_%2836165097896%29_%28cropped%29.jpg/900px-Gal_Gadot_%2836165097896%29_%28cropped%29.jpg"
-                            alt="avatar" />
-                        <p>Gal Gadot</p>
-                    </div>
-                </div> */}
+               
                 <div className="prodText_dropdown">
                     <div>
                         <h1>Products</h1>
@@ -212,33 +184,7 @@ export class Products extends React.Component {
                         </thead>
                         <tbody className="table-body">
                             {this._renderProducts()}
-                            {/* <tr className="table-row">
-                                <td>Coca Cola</td>
-                                <td>Drink</td>
-                                <td>carbonated soft drink</td>
-                                <td>29/04/2019</td>
-                                <td>75</td>
-                                <td className="row-actions">
-                                    <button className="icon-button edit-button"></button>
-                                    <button className="icon-button delete-button"></button>
-                                </td>
-                            </tr>
-                            <tr className="table-row">
-                                <td>Coca Cola</td>
-                                <td>Drink</td>
-                                <td>carbonated soft drink</td>
-                                <td>29/04/2019</td>
-                                <td>75</td>
-                                <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td>
-                            </tr>
-                            <tr className="table-row">
-                                <td>Coca Cola</td>
-                                <td>Drink</td>
-                                <td>carbonated soft drink</td>
-                                <td>29/04/2019</td>
-                                <td>75</td>
-                                <td className="row-actions"><i className="far fa-edit"></i> <i className="far fa-trash-alt"></i></td>
-                            </tr> */}
+                            
                         </tbody>
                     </table>
 

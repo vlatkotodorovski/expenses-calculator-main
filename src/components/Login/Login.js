@@ -26,15 +26,7 @@ export class Login extends React.Component {
         })
             .catch(err => console.log(err))
 
-        // fetch('http://localhost:3000/login', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     body: {
-        //         email: this.state.email,
-        //         password: this.state.password
-        //     }
-        // }).then(res => console.log(res))
-        //     .catch(err => console.log(err))
+        
     }
 
     HandleFieldsChange(e) {
@@ -59,7 +51,7 @@ export class Login extends React.Component {
                             <button onClick={this._doLogin}>SIGN IN</button>
 
                         </div>
-                        {/* <p>Or if you don't have an account, <a href="register.html">Register.</a></p> */}
+                       
                         <p>Or if you don't have an account, <NavLink to="/register"> Register</NavLink></p>
                     </div>
                 </div>

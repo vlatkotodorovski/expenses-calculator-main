@@ -1,20 +1,15 @@
 import React from 'react'
-// import './NewProduct.css'
+
 import moment from 'moment';
 import axios from 'axios'
-// import { NavLink } from 'react-router-dom'
+
 
 
 export class EditProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // productName: this.productName,
-            // productDescription: this.productDescription,
-            // productType: this.productType,
-            // purchaseDate: this.purchaseDate,
-            // price: this.price,
-            // product: this.props.location.state.product
+            
             productName: '',
             productDescription: '',
             productType: '',
@@ -54,18 +49,7 @@ export class EditProduct extends React.Component {
         return (
             <section id="new-product">
                 <div className="newProduct">
-                    {/* <div className="headerNewProduct">
-                        <div className="button" >
-                            <button className="button_products">PRODUCTS</button>
-                            <button className="button_expenses">EXPENSES</button>
-                        </div>
-
-
-                        <div className="avatar">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Gal_Gadot_%2836165097896%29_%28cropped%29.jpg/900px-Gal_Gadot_%2836165097896%29_%28cropped%29.jpg" alt="avatar" />
-                            <p>Gal Gadot</p>
-                        </div>
-                    </div> */}
+                    
 
                     <div className="backgroundProduct">
                         <div className="backNewProd">
